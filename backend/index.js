@@ -7,6 +7,10 @@ const app = express();
 
 connectToMongo();
 
+//Access Routes
+app.get("/api/auth", require("./routes/auth"));
+app.get("/api/notes", require("./routes/notes"));
+
 app.get("/", (req, res) => {
   res.send("hello world");
 });
