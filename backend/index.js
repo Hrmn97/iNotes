@@ -2,14 +2,16 @@
 
 const express = require("express");
 
+
 const connectToMongo = require("./db");
 const app = express();
 
 connectToMongo();
+app.use(express.json());
 
 //Access Routes
-app.get("/api/auth", require("./routes/auth"));
-app.get("/api/notes", require("./routes/notes"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/notes", require("./routes/notes"));
 
 app.get("/", (req, res) => {
   res.send("hello world");
