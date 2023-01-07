@@ -2,7 +2,6 @@
 
 const express = require("express");
 
-
 const connectToMongo = require("./db");
 const app = express();
 
@@ -17,6 +16,6 @@ app.get("/", (req, res) => {
   res.send("hello world");
 });
 
-app.listen(3000, () => {
-  console.log("Server is up at http://localhost:3000");
+app.listen(5000, () => {
+  console.log("Server is up at http://localhost:5000");
 });
