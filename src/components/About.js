@@ -1,7 +1,13 @@
 import React from "react";
+//import noteContext from "../context/notes/noteContext";
 
 const About = () => {
-  return <div>This is about</div>;
+  
+  return (
+    <div>
+      Hi i am Page
+    </div>
+  );
 };
 
 export default About;

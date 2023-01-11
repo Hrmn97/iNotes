@@ -17,5 +17,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log("Server is up at http://localhost:5000");
+  console.log("iNotes server running at http://localhost:5000");
 });
