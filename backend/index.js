@@ -1,11 +1,13 @@
 //jshint esversion6
 
 const express = require("express");
+var cors = require("cors");
 
 const connectToMongo = require("./db");
 const app = express();
 
 connectToMongo();
+app.use(cors());
 app.use(express.json());
 
 //Access Routes

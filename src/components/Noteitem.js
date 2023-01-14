@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import noteContext from "../context/notes/noteContext";
 
 const NoteItem = (props) => {
+  const context = useContext(noteContext);
+  const { deleteNote } = context;
   const { note } = props;
+
   return (
     <div className="container col-md-3 m-3">
-      <div class=" row card">
-        <div class="col card-body">
-          <h5 class="card-title">
+      <div className=" row card">
+        <div className="col card-body">
+          <h5 className="card-title">
             {note.title ? note.title.slice(0, 15) : ""}
           </h5>
-          <p class="card-text">{note.description}</p>
+          <p className="card-text">{note.description}</p>
+          <div className="row this">
+            <div className="col">
+              <i className="fa-solid fa-pen-to-square"> Edit</i>
+            </div>
+            <div className="col">
+              <i
+                className="fa-solid fa-trash"
+                onClick={() => {
+                  deleteNote(note._id);
+                }}
+              >
+                {" "}
+                Delete
+              </i>
+            </div>
+          </div>
         </div>
       </div>
     </div>
