@@ -39,6 +39,16 @@ const AddNote = () => {
               placeholder="Add Your Description"
             />
           </div>
+          <div className="mb-3">
+            <input
+              id="tag"
+              name="tag"
+              type="text"
+              className="form-control"
+              onChange={onChange}
+              placeholder="Tag it"
+            />
+          </div>
           <button
             type="submit"
             onClick={handleClick}
