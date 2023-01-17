@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  let navigate = useNavigate();
   const handleSubmit = async (e) => {
-    e.preventdefault();
+    e.preventDefault();
     //API fetch
     const response = await fetch(`http://localhost:5000/api/auth/login`, {
       method: "POST",
@@ -17,6 +19,14 @@ const Login = () => {
     });
     const json = await response.json();
     console.log(json);
+    if (json.success) {
+      //redirect
+      localStorage.setItem("token", json.authtoken);
+      navigate("/");
+      // props.shoAlert("Logged In Successfully", "success");
+    } else {
+      // props.shoAlert("Invalid credentials", "danger");
+    }
   };
 
   const onChange = (e) => {

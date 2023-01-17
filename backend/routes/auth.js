@@ -22,17 +22,20 @@ router.post(
     }),
   ],
   async (req, res) => {
+    let success = false;
     //If there are errors, Bad Request generated
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success, errors: errors.array() });
     }
 
     //Check wether the email is being repeated
     try {
       let user = await User.findOne({ email: req.body.email });
       if (user) {
-        return res.status(400).json({ error: "Email already registered" });
+        return res
+          .status(400)
+          .json({ success, error: "Email already registered" });
       }
       const salt = bcrypt.genSaltSync(10);
       const uniPass = await bcrypt.hash(req.body.password, salt);
@@ -47,7 +50,8 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      res.json({ authtoken });
+      success = true;
+      res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server error");
@@ -64,6 +68,7 @@ router.post(
     body("password", "Password cannot be blank").exists(),
   ],
   async (req, res) => {
+    let success = false;
     //If there are errors, Bad Request generated
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -78,7 +83,9 @@ router.post(
       }
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
-        return res.status(400).json({ error: "Incorrect credentials" });
+        return res
+          .status(400)
+          .json({ success, error: "Incorrect credentials" });
       }
       const data = {
         user: {
@@ -86,7 +93,8 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      res.json({ authtoken });
+      success = true;
+      res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server error");
